@@ -21,5 +21,6 @@ VALUES ("Nick", "Tozzi", 1),
        ("Bob", "Tozzi", 1),
        ("Joe", "Tozzi", 3);
 
-UPDATE employee SET manager_id = 2 where id = 1 or id =4 or id =3 or id =6;
+UPDATE employee SET manager_id = 2 
+where id = 1 or id =4 or id =3 or id =6;
 

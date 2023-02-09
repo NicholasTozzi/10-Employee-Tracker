@@ -28,7 +28,7 @@ function homeMenu() {
           "add a department",
           "add a role",
           "add an employee",
-          "update an employee role", // in seed file
+          "update an employee role", // how to write function in seed file
         ],
       },
     ])
@@ -46,6 +46,22 @@ function homeMenu() {
 
         case "view all employees":
           viewEmployee();
+          return;
+
+        case "add a department":
+          addDept();
+          return;
+
+        case "add an employees":
+          addEmployee();
+          return;
+
+        case "add a role":
+          addRole();
+          return;
+
+        case "update an employee role":
+          updateRole();
           return;
       }
     });
@@ -74,6 +90,69 @@ function viewEmployee() {
     printTable(res);
     homeMenu();
   });
+}
+
+function addEmployee() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "add a first name",
+        name: "first_name",
+      },
+      {
+        type: "input",
+        message: "add a last name",
+        name: "last_name",
+      },
+      {
+        type: "input",
+        message: "add a role",
+        name: "role",
+      },
+      {
+        type: "input",
+        message: "add a manager",
+        name: "manager",
+      },
+    ])
+    .then((answers) => {
+      db.query(
+        "INSERT INTO per personnel_db (first_name, last_name, role, manager)",
+        function (err, res) {
+          if (err) throw err;
+          printTable(res);
+          homeMenu();
+        }
+      );
+    });
+}
+
+function addRole() {
+  db.query("select * from employee", function (err, res) {
+    if (err) throw err;
+    printTable(res);
+    homeMenu();
+  });
+}
+
+function addDept() {
+  db.query("select * from employee", function (err, res) {
+    if (err) throw err;
+    printTable(res);
+    homeMenu();
+  });
+}
+
+function updateRole() {
+  db.query(
+    `UPDATE employee SET role = 2 where id = 1 and ;`,
+    function (err, res) {
+      if (err) throw err;
+      printTable(res);
+      homeMenu();
+    }
+  );
 }
 
 // WHEN I start the application
