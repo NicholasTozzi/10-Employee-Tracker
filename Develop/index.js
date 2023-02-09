@@ -14,7 +14,6 @@ db.connect(() => {
 
 //inquirer prompt
 function homeMenu() {
-  //TODO: render database on home screen
   inquirer
     .prompt([
       {
@@ -28,13 +27,11 @@ function homeMenu() {
           "add a department",
           "add a role",
           "add an employee",
-          "update an employee role", // how to write function in seed file
+          "update an employee role",
         ],
       },
     ])
     .then(({ home }) => {
-      console.log(home);
-      //TODO create switch case, that matches choices with the functions below
       switch (home) {
         case "view all departments":
           viewDept();
@@ -68,7 +65,6 @@ function homeMenu() {
 }
 
 function viewDept() {
-  //TODO query response
   db.query("select * from department", function (err, res) {
     if (err) throw err;
     printTable(res);
@@ -93,32 +89,39 @@ function viewEmployee() {
 }
 
 function addEmployee() {
+  //TODO create an inquirer prompt to take in params first/last name roleID and managerID
+  //TODO create a promise that takes these answers and stores it in our db
   inquirer
     .prompt([
       {
         type: "input",
-        message: "add a first name",
+        message: "add a first name: ",
         name: "first_name",
       },
       {
         type: "input",
-        message: "add a last name",
+        message: "add a last name: ",
         name: "last_name",
       },
       {
         type: "input",
-        message: "add a role",
-        name: "role",
+        message: "add a role: ",
+        name: "role_id",
       },
       {
         type: "input",
-        message: "add a manager",
-        name: "manager",
+        message: "add a manager: ",
+        name: "manager_id",
       },
     ])
     .then((answers) => {
       db.query(
-        "INSERT INTO per personnel_db (first_name, last_name, role, manager)",
+        "INSERT INTO employee SET ? (first_name, last_name, role_id, manager_id)",
+        {
+          first_name: answers.first_name,
+          last_name: answers.last_name,
+          //TODO add the data for db here as second param to db.query
+        },
         function (err, res) {
           if (err) throw err;
           printTable(res);
@@ -129,6 +132,8 @@ function addEmployee() {
 }
 
 function addRole() {
+  //TODO create an inquirer prompt to take in params first/last name roleID and managerID
+  //TODO create a promise that takes these answers and stores it in our db
   db.query("select * from employee", function (err, res) {
     if (err) throw err;
     printTable(res);
@@ -137,6 +142,8 @@ function addRole() {
 }
 
 function addDept() {
+  //TODO create an inquirer prompt to take in params first/last name roleID and managerID
+  //TODO create a promise that takes these answers and stores it in our db
   db.query("select * from employee", function (err, res) {
     if (err) throw err;
     printTable(res);
@@ -145,6 +152,8 @@ function addDept() {
 }
 
 function updateRole() {
+  //TODO create an prompt to select employee from DB
+  //TODO create a promise that takes these answers updates employee
   db.query(
     `UPDATE employee SET role = 2 where id = 1 and ;`,
     function (err, res) {
@@ -154,27 +163,3 @@ function updateRole() {
     }
   );
 }
-
-// WHEN I start the application
-// THEN I am presented with the following options: view all departments, view all roles, view all employees, add a department, add a role, add an employee, and update an employee role
-// WHEN I choose to view all departments
-
-// THEN I am presented with a formatted table showing department names and department ids
-// WHEN I choose to view all roles
-
-// THEN I am presented with the job title, role id, the department that role belongs to, and the salary for that role
-// WHEN I choose to view all employees
-
-// THEN I am presented with a formatted table showing employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
-// WHEN I choose to add a department
-
-// THEN I am prompted to enter the name of the department and that department is added to the database
-// WHEN I choose to add a role
-
-// THEN I am prompted to enter the name, salary, and department for the role and that role is added to the database
-// WHEN I choose to add an employee
-
-// THEN I am prompted to enter the employee’s first name, last name, role, and manager, and that employee is added to the database
-// WHEN I choose to update an employee role
-
-// THEN I am prompted to select an employee to update and their new role and this information is updated in the database

@@ -2,7 +2,6 @@
 const express = require("express");
 const mysql = require("mysql2");
 const { printTable } = require("console-table-printer");
-// const { toUnicode } = require("punycode");
 //port
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -22,9 +21,8 @@ const db = mysql.createConnection(
 );
 
 //Database Queries
-//TODO
-db.query("SELECT * FROM students", function (err, results) {
-  printTable(results);
+db.query("SELECT * FROM employee", function (err, res) {
+  printTable(res);
 });
 
 app.use((req, res) => {

@@ -6,13 +6,13 @@ VALUES ("Engineering"),
        ("Legal"),
        ("Sales");
 
-       /* role */
+/* role */
 INSERT INTO role (dep_id, title, salary)
 VALUES (4, "sales", 100000),
 (1, "Finance", 120000),
 (3, "Engineering", 135000);
 
-       /* Employee */
+/* Employee */
 INSERT INTO employee (first_name, last_name, role_id)
 VALUES ("Nick", "Tozzi", 1),
        ("Rick", "Tozzi", 2),
